@@ -2,6 +2,7 @@
 var express = require('express');
 const cors = require('cors');
 const app = express();
+const router = express.Router();
 const host = '0.0.0.0';
 const port = 80;
 
@@ -14,3 +15,11 @@ app.get('/', (req, res) => {
 
 app.listen(port, host);
 console.log(`Running on http://${host}:${port}`);
+
+const productController = require('./controller/index')
+
+router.get('/request', productController.request);
+router.get('/cancel', productController.cancel);
+router.get('/all', productController.listProducts);
+
+app.use('/api/products', router);

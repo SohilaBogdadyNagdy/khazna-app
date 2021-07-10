@@ -17,6 +17,11 @@ exports.findAll = async function () {
     const results = await db.query("SELECT * FROM products");
     return results[0];
 }
+ 
+exports.findByUserBalance = async function (balance) {
+    const result = await db.query("SELECT * FROM products WHERE price=<?", balance);
+    return result[0];
+}
 
 exports.findOne = async function (id) {
     const result = await db.query("SELECT * FROM products WHERE id=?", id);
