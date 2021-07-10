@@ -19,7 +19,8 @@ exports.signup = (req, res, next) => {
     
   };
 exports.login = (req, res, next) => {
-    user = userModel.findOneByName(req.user.name);
+    console.log('login')
+    user = userModel.findOneByName(req.body.name);
     if (!user){
         res.status(401).json({message: 'Not Authorized'});
     }
