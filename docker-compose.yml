@@ -11,5 +11,22 @@ services:
       - MYSQL_PASSWORD=pwd
   auth:
     build: ./auth-service
+    tty: true
+    ports:
+        - '30500:80'
+    environment:
+        - DB_LOCATION=sql
+        - DB_USER=db_user
+        - DB_PASSWORD=pwd
+        - DB_NAME=db  
   product:
     build: ./products-service
+    tty: true
+    ports:
+        - '30501:80'  
+    environment:
+        - DB_LOCATION=sql
+        - DB_USER=db_user
+        - DB_PASSWORD=pwd
+        - DB_NAME=db
+        - AUTH_URL=http://auth
