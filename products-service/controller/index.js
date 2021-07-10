@@ -29,6 +29,9 @@ exports.cancel = (req, res, next) => {
         const user = req.user;
         const { id } = req.params;
         product = productsModel.findOne(id)
+        if (product.state == 'Delivered') {
+            res.state(400).json({ message: 'Not Allowd to cancel product in delivered state.'})
+        }
         productsModel.updateState(id, 'AVAILABE')
         // addToUserBalance(product.price)
         res.status(200).json({message: 'Done Successfully'});
