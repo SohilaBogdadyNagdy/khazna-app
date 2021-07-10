@@ -1,23 +1,22 @@
 
 var express = require('express');
-const mysql = require('mysql');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+
 const app = express();
 const port = 80;
 const host = '0.0.0.0';
-const db_location = process.env.DB_LOCATION;
-const db_user = process.env.DB_USER;
-const db_password = process.env.DB_PASSWORD;
-const db_name  = process.env.DB_NAME;
- 
- 
+
+const router = express.Router();
+
 app.use(express.json());
 app.use(cors());
- 
-
-app.get('/', (req, res) => {
-    res.send('Hello World');
-});
+app.use(bodyParser.json());
 
 app.listen(port, host);
 console.log(`Running on http://${host}:${port}`);
+
+const userCtrl = require('../controllers/index.js');
+
+router.post('/signup', userCtrl.signup);
+router.post('/login', userCtrl.login);
