@@ -21,6 +21,11 @@ exports.findOne = async function (id) {
     return result[0];
 }
 
+exports.findOneByName = async function (name) {
+    const result = await db.query("SELECT * FROM users WHERE name=?", name);
+    return result[0];
+}
+
 exports.create = async function (name, balance) {
     await db.query("INSERT INTO users(name, balance) VALUES (?, ?)", [name, balance]);
 }
