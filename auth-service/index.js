@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.listen(port, host);
 console.log(`Running on http://${host}:${port}`);
 
-const userCtrl = require('../controllers/index.js');
+const userController = require('./controller/index')
 
-router.post('/signup', userCtrl.signup);
-router.post('/login', userCtrl.login);
+router.post('/signup', userController.signup);
+router.post('/login', userController.login);
