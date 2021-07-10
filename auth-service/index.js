@@ -20,3 +20,5 @@ const userController = require('./controller/index')
 
 router.post('/signup', userController.signup);
 router.post('/login', userController.login);
+
+app.use('/api/auth', router);
