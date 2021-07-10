@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const secret = 'APP@!';
+const secret = 'secret%&(!';
 
 const userModel = require("../model/index");
 

@@ -19,8 +19,8 @@ console.log(`Running on http://${host}:${port}`);
 
 const productController = require('./controller/index')
 
-router.get('/request', auth, productController.request);
-router.get('/cancel',auth, productController.cancel);
+router.get('/request/:id', auth, productController.request);
+router.get('/cancel/:id',auth, productController.cancel);
 router.get('/all', auth, productController.listProducts);
 
 app.use('/api/products', router);
