@@ -30,6 +30,7 @@ exports.login = async (req, res, next) => {
         const userPass = user.password || '';
         const valid = await bcrypt.compare(body.password, userPass);
         if (valid) { return res.status(200).json({token: generateToken(user)}) };
+        console.log(generateToken(user));
         return res.status(400).json({message: 'Password not correct'});
     } catch(exp) {
         console.log(exp);

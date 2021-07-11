@@ -1,18 +1,18 @@
 const jwt = require('jsonwebtoken');
 const secret = 'secret%&(!';
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
   try {
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, secret);
+    const token = req.headers.authorization.split(' ')[1] || '';
+    const decodedToken = await jwt.verify(token, secret);
     const userId = decodedToken.userId;
-    if (req.body.userId && req.body.userId !== userId) {
-      throw 'Invalid user ID';
-    } else {
+    if (userId) {
+      req.user = user;
       next();
     }
-  } catch {
-    res.status(401).json({
+  } catch(exp) {
+    console.log(exp.message);
+    return res.status(401).json({
       message: 'Not Authorized'
     });
   }
