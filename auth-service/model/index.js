@@ -26,8 +26,9 @@ exports.findOneByName = async function (name) {
     return result[0];
 }
 
-exports.create = async function (name, balance) {
-    await db.query("INSERT INTO users(name, balance) VALUES (?, ?)", [name, balance]);
+exports.create = async function (name, balance, password) {
+    await db.query("INSERT INTO users(name, balance, password) VALUES (?, ?, ?)", [name, balance, password]);
+
 }
 
 exports.update = async function (id, name, balance) {

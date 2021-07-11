@@ -7,13 +7,14 @@ const userModel = require("../model/index");
 function generateToken(user) {
     return jwt.sign({ data: user}, secret, { expiresIn: '24h'});
 }
-exports.signup = (req, res, next) => {
+exports.signup = async (req, res, next) => {
     try {
         console.log('signup');
-        hash = bcrypt.hash(req.body.password, 10);
-        const user = userModel.create(req.body.name, req.body.balance, hash);
-        return res.status(200).json({message: "user created"});
+        hash = await bcrypt.hash(req.body.password, 10);
+        const user = await userModel.create(req.body.name, req.body.balance, hash);
+        return res.status(200).json({data: user });
     } catch(exp) {
+        console.log(exp)
         return res.status(500).json({message: exp.message});
     }
     
