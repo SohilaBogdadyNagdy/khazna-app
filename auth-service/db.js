@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 const db_location = process.env.DB_LOCATION;
 const db_user = process.env.DB_USER;
@@ -11,5 +11,6 @@ const pool = mysql.createPool({
     password: db_password,
     database: db_name,
 });
+const promisePool = pool.promise();
 
-module.exports = pool;
+module.exports = promisePool;

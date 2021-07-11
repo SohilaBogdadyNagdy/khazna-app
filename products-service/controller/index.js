@@ -4,9 +4,9 @@ exports.listProducts = (req, res, next) => {
     try {
         const balance = req.user.balance;
         const data = productsModel.findByUserBalance(balance);
-        res.status(200).json({data});
+        return res.status(200).json({data});
     } catch(exp) {
-        res.status(500).json({message: exp.message});
+        return res.status(500).json({message: exp.message});
     }
 };
 
@@ -18,9 +18,9 @@ exports.request = (req, res, next) => {
         product = productsModel.findOne(id)
         productsModel.updateState(id, 'REQUESTED')
         // deductFromUserBalance(product.price)
-        res.status(200).json({message: 'Done Successfully'});
+        return res.status(200).json({message: 'Done Successfully'});
     } catch(exp) {
-        res.status(500).json({message: exp.message});
+        return res.status(500).json({message: exp.message});
     }
 };
 
@@ -34,9 +34,9 @@ exports.cancel = (req, res, next) => {
         }
         productsModel.updateState(id, 'AVAILABE')
         // addToUserBalance(product.price)
-        res.status(200).json({message: 'Done Successfully'});
+        return res.status(200).json({message: 'Done Successfully'});
     } catch(exp) {
-        res.status(500).json({message: exp.message});
+        return res.status(500).json({message: exp.message});
     }
 };
 
