@@ -21,16 +21,15 @@ exports.signup = async (req, res, next) => {
   };
 exports.login = async (req, res, next) => {
     try {
-        console.log('login')
-        user = await userModel.findOneByName(req.body.name);
-        console.log(user)
+        console.log('login');
+        const body = req.body;
+        user = await userModel.findOneByName(body.name);
         if (!user){
             return res.status(401).json({message: 'Not Authorized'});
         }
-        bcrypt.compare(req.body.password, user.password, (error, match) => {
-            if (error) { return res.status(400).json({message: 'Password not correct'});}
-            return res.status(200).json({token: generateToken(user)});
-        });
+        const valid = await bcrypt.compare(body.password, user.password || '');
+        if (valid) { return res.status(200).json({token: generateToken(user)}) };
+        return res.status(400).json({message: 'Password not correct'});
     } catch(exp) {
         console.log(exp);
         return res.status(500).json({message: exp.message});
