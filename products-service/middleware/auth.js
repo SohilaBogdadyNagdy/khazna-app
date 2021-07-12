@@ -1,18 +1,22 @@
 const jwt = require('jsonwebtoken');
+var _ = require('lodash');
+var flatten = require('flat')
+
+const SECRET = 'secret%&(!';
 
 module.exports = async (req, res, next) => {
   let token;
+  const headers = flatten(req.headers);
   if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')
+    headers.authorization
   ) {
-    token = req.headers.authorization.split(' ')[1];
+    token = headers.authorization;
   }
   if (!token) {
      return res.status(401).json({ error: 'token missing' })
   }
   try {
-    const decoded = jwt.verify(token, process.env.SECRET);
+    const decoded = jwt.verify(token, SECRET);
     req.user = decoded;
     next();
   } catch (ex) {

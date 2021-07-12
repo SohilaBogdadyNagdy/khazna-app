@@ -2,12 +2,12 @@ var _ = require('lodash');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 var flatten = require('flat')
-const secret = 'secret%&(!';
+const SECRET = 'secret%&(!';
 
 const userModel = require("../model/index");
 
 function generateToken(user) {
-    return jwt.sign({ data: user}, secret, { expiresIn: '24h'});
+    return jwt.sign({ data: user}, SECRET, { expiresIn: '24h'});
 }
 exports.signup = async (req, res, next) => {
     try {
