@@ -1,5 +1,7 @@
+var _ = require('lodash');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+var flatten = require('flat')
 const secret = 'secret%&(!';
 
 const userModel = require("../model/index");
@@ -27,10 +29,10 @@ exports.login = async (req, res, next) => {
         if (!user){
             return res.status(401).json({message: 'Not Authorized'});
         }
-        const userPass = user.password || '';
+        var userPass = flatten(user);
+        userPass = _.get(userPass, 'password') || _.get(userPass, '0.password') 
         const valid = await bcrypt.compare(body.password, userPass);
         if (valid) { return res.status(200).json({token: generateToken(user)}) };
-        console.log(generateToken(user));
         return res.status(400).json({message: 'Password not correct'});
     } catch(exp) {
         console.log(exp);
